@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Title</title>
+    <script>
+      window.brunch = window.brunch || {};
+      window.brunch['auto-reload'] = {
+        enabled: true
+      };
+    </script>
+    <link rel="stylesheet" href="demo.css">
+    <link rel="stylesheet" href="/stylesheets/app.css">
+    <script src="/javascripts/vendor.js"></script>
+    <!-- script(src='/javascripts/app.js')-->
+    <script src="tabcordion.js"></script>
+  </head>
+  <body>
+    <div class="page-header">
+      <h1>Tabcordion</h1>
+    </div>
+    <div class="row">
+      <div class="span6">
+        <p class="lead">Press the button. Go on, press it.</p>
+        <p>
+          <div class="btn-group">
+            <button onclick="$('.tabcordion').tabcordion('tabs')" class="btn">Tabs</button>
+            <button onclick="$('.tabcordion').tabcordion('accordion')" class="btn">Accordion</button>
+          </div>
+        </p>
+        <p></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <div class="tabcordion">
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-target=".home">Home</a></li>
+            <li><a data-target=".profile">Profile</a></li>
+            <li><a data-target=".messages">Messages</a></li>
+            <li><a data-target=".settings">Settings</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="home active in">
+              <h3>Home</h3>
+              <p>Rhoncus magna nec enim, et proin aliquet mid, porta magnis. Augue dictumst! Turpis hac tristique nascetur. Porttitor ut urna. Tempor? Scelerisque vel, mattis rhoncus parturient amet, ut duis? In in massa vut, nunc porttitor a purus! Sed magnis massa nisi? Risus in turpis nunc augue cras odio! Nec scelerisque etiam cum rhoncus tincidunt nunc? Mauris augue facilisis sit? Proin lacus? Tempor? Urna dis rhoncus diam pellentesque, nascetur cursus, a nec eu porta enim ultricies et facilisis.</p>
+              <p>Scelerisque turpis! Sit proin odio egestas sed urna platea lundium, cursus odio hac.</p>
+            </div>
+            <div class="profile">
+              <h3>Profile</h3>
+              <p>Odio mattis, non ut! Porttitor nunc phasellus cras elementum, integer pulvinar mus tincidunt hac aenean dictumst ultricies duis, sit, ac sit tortor vel hac dolor? Etiam, hac purus a amet in parturient, natoque pulvinar, adipiscing ultrices proin augue dis dignissim! Elementum platea risus purus enim duis hac mus etiam turpis tristique amet augue cum, lorem. Pulvinar? Aliquam, scelerisque tempor sed. Ut rhoncus ac adipiscing adipiscing enim, parturient in cursus tristique, mid ac sagittis quis elit amet, montes nec, porttitor dignissim, mauris, in? Augue parturient, duis scelerisque, pellentesque, pid! Quis nec! Sed porta porttitor mus ac non, magna, amet quis, auctor etiam lundium, sed porta nisi! Odio ac est. Rhoncus odio. Quis egestas, odio dignissim? Nascetur est aliquet massa augue ridiculus.</p>
+              <p>A scelerisque ac nascetur augue? Nascetur platea habitasse elementum aliquam cras nunc integer rhoncus a adipiscing sagittis. Diam aliquam? Porttitor nisi adipiscing. Pulvinar, velit etiam augue sociis dis ac eros sit platea hac lundium vut cursus, sagittis mus integer, ultricies, tincidunt montes diam urna porttitor nunc sit, nunc platea sagittis odio penatibus in nec amet enim, eros lorem cum, tortor in. Sit eu! Porttitor magnis dapibus hac penatibus tincidunt augue pulvinar et, ut placerat ac nisi integer turpis porta, elit risus mauris? Pulvinar? Mus non lorem odio, ac! Sit. Augue porttitor aenean! Sit magnis lorem phasellus ac tincidunt purus! Amet integer in ac nec, natoque a turpis ridiculus nascetur. Mattis dignissim est sit? Ultrices magna, porta? Natoque sed dapibus.</p>
+            </div>
+            <div class="messages">
+              <h3>Messages</h3>
+              <p>Enim hac tristique elementum, nec rhoncus porttitor sagittis cum, sed dapibus! Augue tempor est porttitor, hac sit sed egestas, elit natoque, sociis magna scelerisque mauris amet tristique, non sed sit turpis.</p>
+              <p>Integer a aliquet! Ac pulvinar eros, eu diam, turpis et sit nisi parturient turpis in dapibus pellentesque et risus. Sit magna porta risus. Proin tincidunt ut purus phasellus dolor. Porta porttitor! Lorem est, vut sit nec et odio enim! Montes dapibus nascetur amet integer enim dolor elementum purus, porttitor, enim, mus ut arcu tempor tempor penatibus diam nisi arcu. Vut nunc aliquam enim sit, pellentesque lectus, mus? Phasellus porttitor natoque pulvinar porta dictumst elementum etiam elementum ridiculus, et facilisis, egestas, pulvinar pulvinar porttitor, odio cursus pulvinar ultrices, integer porta aliquet pulvinar, non porta ac lacus rhoncus non? Porta, ac proin tincidunt sit montes, dictumst montes et pulvinar! Augue et? Integer in, nascetur urna etiam ac a ac sed! Purus.</p>
+            </div>
+            <div class="settings">
+              <h4>Settings</h4>
+              <p>Arcu auctor, porttitor tincidunt, aliquam ut ut, placerat porta pulvinar dictumst, placerat dis, nunc vel, risus. Tortor habitasse etiam porttitor mid pulvinar amet, cum tristique, pellentesque, purus? Elementum dignissim ac! Ultricies! Adipiscing a, sociis, rhoncus, scelerisque ac, tristique dolor pid non pid egestas sed nec nec porta nascetur vut! Odio nunc porta, elementum auctor habitasse? Auctor? Ultricies sed nunc massa ultricies platea diam a sit dis lorem? Duis purus augue dapibus. Porttitor placerat, auctor est ut, rhoncus placerat urna, amet mid! Eros a vel eros? Nunc. Natoque? Aliquet purus in sit.</p>
+              <p>Mattis turpis in mid tincidunt placerat tortor tincidunt massa? Porta sagittis, lacus phasellus, diam? A eros eu in elit, mattis augue lundium penatibus. Porta nisi nunc in nascetur ac ut turpis ultricies, vel et augue! Lundium sit! Massa elementum! Et auctor, et turpis nunc cum eu magnis! Porta auctor lundium ultricies elementum sed enim cum adipiscing, sociis, in adipiscing, purus et. Cum sed. Facilisis lectus! Sed ac odio montes platea porttitor, porta sagittis adipiscing, porta scelerisque augue mauris eu integer elit, adipiscing ut?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <div class="page-header">
+          <h2>Vertical Tabs</h2>
+        </div>
+        <p class="lead">Whip it.</p>
+        <div class="tabcordion tabs-left">
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-target=".home2">Home</a></li>
+            <li><a data-target=".profile2">Profile</a></li>
+            <li><a data-target=".messages2">Messages</a></li>
+            <li><a data-target=".settings2">Settings</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="home2 active in">
+              <h3>Home</h3>
+              <p>Rhoncus magna nec enim, et proin aliquet mid, porta magnis. Augue dictumst! Turpis hac tristique nascetur. Porttitor ut urna. Tempor? Scelerisque vel, mattis rhoncus parturient amet, ut duis? In in massa vut, nunc porttitor a purus! Sed magnis massa nisi? Risus in turpis nunc augue cras odio! Nec scelerisque etiam cum rhoncus tincidunt nunc? Mauris augue facilisis sit? Proin lacus? Tempor? Urna dis rhoncus diam pellentesque, nascetur cursus, a nec eu porta enim ultricies et facilisis.</p>
+              <p>Scelerisque turpis! Sit proin odio egestas sed urna platea lundium, cursus odio hac.</p>
+            </div>
+            <div class="profile2">
+              <h3>Profile</h3>
+              <p>Odio mattis, non ut! Porttitor nunc phasellus cras elementum, integer pulvinar mus tincidunt hac aenean dictumst ultricies duis, sit, ac sit tortor vel hac dolor? Etiam, hac purus a amet in parturient, natoque pulvinar, adipiscing ultrices proin augue dis dignissim! Elementum platea risus purus enim duis hac mus etiam turpis tristique amet augue cum, lorem. Pulvinar? Aliquam, scelerisque tempor sed. Ut rhoncus ac adipiscing adipiscing enim, parturient in cursus tristique, mid ac sagittis quis elit amet, montes nec, porttitor dignissim, mauris, in? Augue parturient, duis scelerisque, pellentesque, pid! Quis nec! Sed porta porttitor mus ac non, magna, amet quis, auctor etiam lundium, sed porta nisi! Odio ac est. Rhoncus odio. Quis egestas, odio dignissim? Nascetur est aliquet massa augue ridiculus.</p>
+              <p>A scelerisque ac nascetur augue? Nascetur platea habitasse elementum aliquam cras nunc integer rhoncus a adipiscing sagittis. Diam aliquam? Porttitor nisi adipiscing. Pulvinar, velit etiam augue sociis dis ac eros sit platea hac lundium vut cursus, sagittis mus integer, ultricies, tincidunt montes diam urna porttitor nunc sit, nunc platea sagittis odio penatibus in nec amet enim, eros lorem cum, tortor in. Sit eu! Porttitor magnis dapibus hac penatibus tincidunt augue pulvinar et, ut placerat ac nisi integer turpis porta, elit risus mauris? Pulvinar? Mus non lorem odio, ac! Sit. Augue porttitor aenean! Sit magnis lorem phasellus ac tincidunt purus! Amet integer in ac nec, natoque a turpis ridiculus nascetur. Mattis dignissim est sit? Ultrices magna, porta? Natoque sed dapibus.</p>
+            </div>
+            <div class="messages2">
+              <h3>Messages</h3>
+              <p>Enim hac tristique elementum, nec rhoncus porttitor sagittis cum, sed dapibus! Augue tempor est porttitor, hac sit sed egestas, elit natoque, sociis magna scelerisque mauris amet tristique, non sed sit turpis.</p>
+              <p>Integer a aliquet! Ac pulvinar eros, eu diam, turpis et sit nisi parturient turpis in dapibus pellentesque et risus. Sit magna porta risus. Proin tincidunt ut purus phasellus dolor. Porta porttitor! Lorem est, vut sit nec et odio enim! Montes dapibus nascetur amet integer enim dolor elementum purus, porttitor, enim, mus ut arcu tempor tempor penatibus diam nisi arcu. Vut nunc aliquam enim sit, pellentesque lectus, mus? Phasellus porttitor natoque pulvinar porta dictumst elementum etiam elementum ridiculus, et facilisis, egestas, pulvinar pulvinar porttitor, odio cursus pulvinar ultrices, integer porta aliquet pulvinar, non porta ac lacus rhoncus non? Porta, ac proin tincidunt sit montes, dictumst montes et pulvinar! Augue et? Integer in, nascetur urna etiam ac a ac sed! Purus.</p>
+            </div>
+            <div class="settings2">
+              <h4>Settings</h4>
+              <p>Arcu auctor, porttitor tincidunt, aliquam ut ut, placerat porta pulvinar dictumst, placerat dis, nunc vel, risus. Tortor habitasse etiam porttitor mid pulvinar amet, cum tristique, pellentesque, purus? Elementum dignissim ac! Ultricies! Adipiscing a, sociis, rhoncus, scelerisque ac, tristique dolor pid non pid egestas sed nec nec porta nascetur vut! Odio nunc porta, elementum auctor habitasse? Auctor? Ultricies sed nunc massa ultricies platea diam a sit dis lorem? Duis purus augue dapibus. Porttitor placerat, auctor est ut, rhoncus placerat urna, amet mid! Eros a vel eros? Nunc. Natoque? Aliquet purus in sit.</p>
+              <p>Mattis turpis in mid tincidunt placerat tortor tincidunt massa? Porta sagittis, lacus phasellus, diam? A eros eu in elit, mattis augue lundium penatibus. Porta nisi nunc in nascetur ac ut turpis ultricies, vel et augue! Lundium sit! Massa elementum! Et auctor, et turpis nunc cum eu magnis! Porta auctor lundium ultricies elementum sed enim cum adipiscing, sociis, in adipiscing, purus et. Cum sed. Facilisis lectus! Sed ac odio montes platea porttitor, porta sagittis adipiscing, porta scelerisque augue mauris eu integer elit, adipiscing ut?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(function() {
+        $('.tabcordion').tabcordion()
+      });
+    </script>
+  </body>
+</html>
