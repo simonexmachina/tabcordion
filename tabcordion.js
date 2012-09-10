@@ -21,13 +21,16 @@
   };
 
   $.fn.tabcordion.defaults = {
+    resizeEl: null,
     tabs: {
+      minWidth: 480,
       "class": 'tabbable',
       listClass: 'nav nav-tabs',
       itemClass: '',
       bodyClass: 'tab-pane fade'
     },
     accordion: {
+      maxWidth: 480,
       "class": 'accordion',
       listClass: 'nav',
       itemClass: 'accordion-group',
@@ -39,18 +42,34 @@
   Tabcordion = (function() {
 
     function Tabcordion(el, options) {
-      var listClass;
+      var listClass,
+        _this = this;
       this.$el = $(el);
-      this.options = $.extend({}, $.fn.tabcordion.defaults, options);
+      this.options = $.extend({}, $.fn.tabcordion.defaults, {
+        resizeEl: this.el
+      }, options);
       this.$el.addClass(this.options.tabs["class"]).find('> .tab-content > *').addClass(this.options.tabs.bodyClass);
       this.$el.find('> ul > li > a').attr('data-toggle', 'tab');
       this.$el.data('tabcordion', this);
       if (listClass = this.$el.find('> ul').attr('class')) {
         this.options.tabs.listClass += ' ' + listClass;
       }
+      $(window).resize(function(e) {
+        return _this.onResize(e);
+      });
+      this.onResize();
     }
 
-    Tabcordion.prototype.handleResize = function() {};
+    Tabcordion.prototype.onResize = function() {
+      var width;
+      width = $(this.options.resizeEl).width();
+      console.log(width);
+      if (width < this.options.tabs.minWidth) {
+        return this.accordion();
+      } else if (width > this.options.accordion.maxWidth) {
+        return this.tabs();
+      }
+    };
 
     Tabcordion.prototype.tabs = function() {
       var $contentContainer, $list, self;
@@ -123,7 +142,7 @@
         toggle: false
       });
       if (switchToTab) {
-        $content.data('collapse').reset(null);
+        $content.collapse('reset');
       } else {
         $content.height(isActive ? 'auto' : 0);
         $content.collapse(isActive ? 'show' : 'hide');

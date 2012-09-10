@@ -11,12 +11,15 @@ $.fn.tabcordion = (option) ->
       data[option]()
 
 $.fn.tabcordion.defaults =
+  resizeEl: null # defaults to el
   tabs:
+    minWidth: 480
     class: 'tabbable'
     listClass: 'nav nav-tabs'
     itemClass: ''
     bodyClass: 'tab-pane fade'
   accordion:
+    maxWidth: 480
     class: 'accordion'
     listClass: 'nav'
     itemClass: 'accordion-group'
@@ -26,7 +29,7 @@ $.fn.tabcordion.defaults =
 class Tabcordion
   constructor: (el, options) ->
     @$el = $(el);
-    @options = $.extend {}, $.fn.tabcordion.defaults, options
+    @options = $.extend {}, $.fn.tabcordion.defaults, {resizeEl: @el}, options
     # set up the initial tabbed state
     @$el.addClass(@options.tabs.class)
       .find('> .tab-content > *')
@@ -35,8 +38,16 @@ class Tabcordion
     @$el.data('tabcordion', this)
     if listClass = @$el.find('> ul').attr('class')
       @options.tabs.listClass += ' ' + listClass
+    $(window).resize (e) =>
+      @onResize(e)
+    @onResize()
 
-  handleResize: ->
+  onResize: () ->
+    width = $(@options.resizeEl).width()
+    if width < @options.tabs.minWidth
+      @accordion()
+    else if width > @options.accordion.maxWidth
+      @tabs()
 
   tabs: ->
     if @$el.hasClass @options.tabs.class
@@ -124,7 +135,7 @@ class Tabcordion
       parent: @$el.find('> ul')
       toggle: false
     if switchToTab
-      $content.data('collapse').reset(null)
+      $content.collapse('reset')
     else
       $content.height if isActive then 'auto' else 0
       $content.collapse if isActive then 'show' else 'hide'
