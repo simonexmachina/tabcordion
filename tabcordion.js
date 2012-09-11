@@ -46,7 +46,7 @@
         _this = this;
       this.$el = $(el);
       this.options = $.extend({}, $.fn.tabcordion.defaults, {
-        resizeEl: this.el
+        resizeEl: this.$el
       }, options);
       this.$el.addClass(this.options.tabs["class"]).find('> .tab-content > *').addClass(this.options.tabs.bodyClass);
       this.$el.find('> ul > li > a').attr('data-toggle', 'tab');
@@ -63,7 +63,6 @@
     Tabcordion.prototype.onResize = function() {
       var width;
       width = $(this.options.resizeEl).width();
-      console.log(width);
       if (width < this.options.tabs.minWidth) {
         return this.accordion();
       } else if (width > this.options.accordion.maxWidth) {

@@ -1,0 +1,28 @@
+{
+  "name": "tabcordion",
+  "version": "0.1.0",
+  "description": "A simple jQuery plugin that transforms a set of Bootstrap tabs into a Bootstrap accordion.",
+  "main": "tabcordion.js",
+  "scripts": {
+    "test": "node package.js test",
+    "prepublish": "node src/package.js build",
+    "postinstall": "node src/package.js build",
+    "build": "node src/package.js build",
+    "watch": "node src/package.js watch"
+  },
+  "dependencies": {
+    "coffee-script": "1.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/simonvwade/tabcordion.git"
+  },
+  "keywords": [
+    "jQuery",
+    "Bootstrap",
+    "tabs",
+    "accordion"
+  ],
+  "author": "Simon Wade",
+  "license": "BSD"
+}

@@ -2,20 +2,20 @@
 html(lang='en')
   head
       meta(charset='utf-8')
-      title Title
+      title Tabcordion.js
       script
         window.brunch = window.brunch || {};
         window.brunch['auto-reload'] = {
           enabled: true
         };
-      link(rel='stylesheet', href='tabcordion-demo.css')
+      link(rel='stylesheet', href='css/tabcordion-demo.css')
       link(rel='stylesheet', href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css')
       script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
       script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js')
       script(src='tabcordion.js')
   body
     .page-header
-      h1 Tabcordion
+      h1 Tabcordion.js
     .row
       .span6
         p.lead Press the button. Go on, press it.
@@ -23,7 +23,7 @@ html(lang='en')
           .btn-group
             button.btn(onclick="$('.tabcordion').tabcordion('tabs')") Tabs
             button.btn(onclick="$('.tabcordion').tabcordion('accordion')") Accordion
-        p
+        p.lead Tabcordion switches on window resize - go on, resize it.
     .row
       .span12
         .tabcordion
