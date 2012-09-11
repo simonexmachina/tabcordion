@@ -10,8 +10,9 @@
     "build": "node src/package.js build",
     "watch": "node src/package.js watch"
   },
-  "dependencies": {
-    "coffee-script": "1.3.3"
+  "devDependencies": {
+    "coffee-script": "~1.3.3",
+    "jade": "~0.27.2"
   },
   "repository": {
     "type": "git",

@@ -21,6 +21,7 @@ if (mode.match(/postinstall|prepublish|postinstall|build|watch/)) {
   fsExists(sysPath.join(__dirname, 'tabcordion.js'), function(exists) {
     if (mode === 'postinstall' && exists) return;
     execute(['node_modules', 'coffee-script', 'bin', 'coffee'], (mode === 'watch' ? '-w ' : '') + '-o . src/');
+    execute(['node_modules', 'jade', 'bin', 'jade'], (mode === 'watch' ? '-w ' : '') + '-O . *.jade');
   });
 } else if (mode === 'test') {
   execute(['node_modules', 'mocha', 'bin', 'mocha'],
