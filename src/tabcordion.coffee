@@ -29,7 +29,7 @@ $.fn.tabcordion.defaults =
 class Tabcordion
   constructor: (el, options) ->
     @$el = $(el);
-    @options = $.extend {}, $.fn.tabcordion.defaults, {resizeEl: @el}, options
+    @options = $.extend {}, $.fn.tabcordion.defaults, {resizeEl: @$el}, options
     # set up the initial tabbed state
     @$el.addClass(@options.tabs.class)
       .find('> .tab-content > *')

@@ -2,7 +2,7 @@
 
 First it's tabs, now it's an accordion - it's a **TABCORDION**!
 
-A simple plugin that transforms a set of Bootstrap tabs into a Bootstrap accordion. It can be configured to perform this transformation based on the size of the container or viewport to provide responsive awesomeness to your buzzword-rich UI.
+A simple jQuery plugin that transforms a set of Bootstrap tabs into a Bootstrap accordion. It can be configured to perform this transformation based on the size of the container or viewport to provide responsive awesomeness to your buzzword-rich UI.
 
 ## Usage
 
