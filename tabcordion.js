@@ -49,7 +49,8 @@
         resizeEl: this.$el
       }, options);
       this.$el.addClass(this.options.tabs["class"]).find('> .tab-content > *').addClass(this.options.tabs.bodyClass);
-      this.$el.find('> ul > li > a').attr('data-toggle', 'tab');
+      console.log(this.$el)
+      this.$el.find('ul.tablist > li > a').attr('data-toggle', 'tab');
       this.$el.data('tabcordion', this);
       if (listClass = this.$el.find('> ul').attr('class')) {
         this.options.tabs.listClass += ' ' + listClass;
@@ -72,6 +73,7 @@
 
     Tabcordion.prototype.tabs = function() {
       var $contentContainer, $list, self;
+
       if (this.$el.hasClass(this.options.tabs["class"])) {
         return;
       }
@@ -84,6 +86,7 @@
         $item = $(this);
         $link = $item.find('.accordion-heading a');
         $link.attr('data-toggle', 'tab');
+        console.log($content)
         $content = $($link.attr('data-target'));
         $inner = $content.find('> .accordion-inner').remove();
         $content.append($inner.children());
