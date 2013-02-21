@@ -16,49 +16,90 @@
       data = $this.data('tabcordion') || new Tabcordion(this, options);
       if (typeof option === 'string') {
         return data[option]();
+      } else if (typeof option === 'number') {
+        return data.index(option);
       }
     });
   };
 
   $.fn.tabcordion.defaults = {
     resizeEl: null,
+    onResize: true,
+    delay: 500,
+    breakWidth: 768,
     tabs: {
-      minWidth: 480,
+      minWidth: null,
       "class": 'tabbable',
       listClass: 'nav nav-tabs',
       itemClass: '',
-      bodyClass: 'tab-pane fade'
+      bodyClass: 'tab-pane'
     },
     accordion: {
-      maxWidth: 480,
+      maxWidth: null,
       "class": 'accordion',
       listClass: 'nav',
       itemClass: 'accordion-group',
       bodyClass: 'accordion-body collapse'
     },
-    activeClass: 'active in'
+    activeClass: 'active in',
+    scheduler: null
   };
 
   Tabcordion = (function() {
 
     function Tabcordion(el, options) {
-      var listClass,
-        _this = this;
+      var listClass;
       this.$el = $(el);
       this.options = $.extend({}, $.fn.tabcordion.defaults, {
         resizeEl: this.$el
       }, options);
+      if (this.options.tabs.minWidth == null) {
+        this.options.tabs.minWidth = this.options.breakWidth;
+      }
+      if (this.options.accordion.maxWidth == null) {
+        this.options.accordion.maxWidth = this.options.breakWidth;
+      }
       this.$el.addClass(this.options.tabs["class"]).find('> .tab-content > *').addClass(this.options.tabs.bodyClass);
       this.$el.find('> ul > li > a').attr('data-toggle', 'tab');
       this.$el.data('tabcordion', this);
       if (listClass = this.$el.find('> ul').attr('class')) {
         this.options.tabs.listClass += ' ' + listClass;
       }
-      $(window).resize(function(e) {
-        return _this.onResize(e);
-      });
+      if (this.options.onResize) {
+        this.proxy = $.proxy(this.eventHandler, this);
+        $(window).on('resize', this.proxy);
+      }
       this.onResize();
     }
+
+    Tabcordion.prototype.index = function(i) {
+      var c, _i, _len, _ref, _results;
+      if (this.$el.hasClass(this.options.tabs["class"])) {
+        _ref = [this.$el.find('.tab-content > *'), this.$el.find('.nav-tabs > *')];
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          c = _ref[_i];
+          _results.push(c.removeClass('active').slice(i, i + 1).addClass('active'));
+        }
+        return _results;
+      }
+    };
+
+    Tabcordion.prototype.eventHandler = function(e) {
+      var _this = this;
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+      }
+      return this.timeout = setTimeout(function() {
+        if (_this.options.scheduler) {
+          return _this.options.scheduler(function() {
+            return _this.onResize(e);
+          });
+        } else {
+          return _this.onResize(e);
+        }
+      }, this.options.delay);
+    };
 
     Tabcordion.prototype.onResize = function() {
       var width;
@@ -76,21 +117,22 @@
         return;
       }
       this.$el.removeClass(this.options.accordion["class"]).addClass(this.options.tabs["class"]);
-      $list = this.$el.find('> ul').removeClass(this.options.accordion.listClass).addClass(this.options.tabs.listClass);
+      $list = this.$el.find('> ul, .tab-content > ul').removeClass(this.options.accordion.listClass).addClass(this.options.tabs.listClass);
       $contentContainer = this.$el.find('.tab-content');
+      $list.insertBefore($contentContainer);
       self = this;
       return $list.children().removeClass(self.options.accordion.itemClass).addClass(self.options.tabs.itemClass).each(function() {
         var $content, $inner, $item, $link;
         $item = $(this);
         $link = $item.find('.accordion-heading a');
         $link.attr('data-toggle', 'tab');
-        $content = $($link.attr('data-target'));
+        $content = $($link.attr('data-target')).removeClass('fade');
         $inner = $content.find('> .accordion-inner').remove();
         $content.append($inner.children());
         $item.children().remove().end().append($link);
         $contentContainer.append($content);
         self.switchContent($link, $content, self.options.accordion, self.options.tabs);
-        return true;
+        return $link.tab();
       });
     };
 
@@ -102,6 +144,7 @@
       this.$el.removeClass(this.options.tabs["class"]).addClass(this.options.accordion["class"]);
       $list = this.$el.find('> ul').removeClass(this.options.tabs.listClass).addClass(this.options.accordion.listClass);
       $contentContainer = this.$el.find('.tab-content');
+      $contentContainer.append($list);
       self = this;
       $items = $list.children();
       return $items.removeClass(self.options.tabs.itemClass).addClass(self.options.accordion.itemClass).each(function() {
@@ -136,6 +179,9 @@
         $link.removeClass(this.options.activeClass);
         $content.removeClass(this.options.activeClass);
       }
+      $link.on('click', function(e) {
+        return e.preventDefault();
+      });
       $content.collapse({
         parent: this.$el.find('> ul'),
         toggle: false
@@ -147,6 +193,12 @@
         $content.collapse(isActive ? 'show' : 'hide');
       }
       return isActive;
+    };
+
+    Tabcordion.prototype.destroy = function() {
+      if (this.proxy) {
+        return $(window).off('resize', this.proxy);
+      }
     };
 
     return Tabcordion;
