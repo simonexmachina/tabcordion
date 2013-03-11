@@ -73,15 +73,17 @@
     }
 
     Tabcordion.prototype.index = function(i) {
-      var c, _i, _len, _ref, _results;
+      var set, _i, _len, _ref, _results;
       if (this.$el.hasClass(this.options.tabs["class"])) {
         _ref = [this.$el.find('.tab-content > *'), this.$el.find('.nav-tabs > *')];
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          c = _ref[_i];
-          _results.push(c.removeClass('active').slice(i, i + 1).addClass('active'));
+          set = _ref[_i];
+          _results.push(set.removeClass('active').slice(i, i + 1).addClass('active'));
         }
         return _results;
+      } else {
+        return this.$el.find('.accordion-group').removeClass('active').slice(i, i + 1).find('.accordion-body').addClass('in');
       }
     };
 
@@ -112,45 +114,45 @@
     };
 
     Tabcordion.prototype.tabs = function() {
-      var $contentContainer, $list, self;
+      var $list, $tabContent, self;
       if (this.$el.hasClass(this.options.tabs["class"])) {
         return;
       }
       this.$el.removeClass(this.options.accordion["class"]).addClass(this.options.tabs["class"]);
-      $list = this.$el.find('> ul, .tab-content > ul').removeClass(this.options.accordion.listClass).addClass(this.options.tabs.listClass);
-      $contentContainer = this.$el.find('.tab-content');
-      $list.insertBefore($contentContainer);
+      $list = this.$el.find('> ul.nav').removeClass(this.options.accordion.listClass).addClass(this.options.tabs.listClass);
+      $tabContent = this.$el.find('.tab-content').css('display', 'block');
+      $list.parent().append($tabContent);
       self = this;
       return $list.children().removeClass(self.options.accordion.itemClass).addClass(self.options.tabs.itemClass).each(function() {
-        var $content, $inner, $item, $link;
-        $item = $(this);
-        $link = $item.find('.accordion-heading a');
+        var $content, $inner, $link, $navItem;
+        $navItem = $(this);
+        $link = $navItem.find('.accordion-heading a');
         $link.attr('data-toggle', 'tab');
         $content = $($link.attr('data-target')).removeClass('fade');
         $inner = $content.find('> .accordion-inner').remove();
         $content.append($inner.children());
-        $item.children().remove().end().append($link);
-        $contentContainer.append($content);
+        $navItem.children().remove().end().append($link);
+        $tabContent.append($content);
         self.switchContent($link, $content, self.options.accordion, self.options.tabs);
         return $link.tab();
       });
     };
 
     Tabcordion.prototype.accordion = function() {
-      var $contentContainer, $items, $list, self;
+      var $list, $navItems, $tabContent, self;
       if (this.$el.hasClass(this.options.accordion["class"])) {
         return;
       }
       this.$el.removeClass(this.options.tabs["class"]).addClass(this.options.accordion["class"]);
-      $list = this.$el.find('> ul').removeClass(this.options.tabs.listClass).addClass(this.options.accordion.listClass);
-      $contentContainer = this.$el.find('.tab-content');
-      $contentContainer.append($list);
+      $list = this.$el.find('> ul.nav').removeClass(this.options.tabs.listClass).addClass(this.options.accordion.listClass);
+      $list.parent().append($list);
+      $tabContent = this.$el.find('.tab-content').css('display', 'none');
       self = this;
-      $items = $list.children();
-      return $items.removeClass(self.options.tabs.itemClass).addClass(self.options.accordion.itemClass).each(function() {
-        var $content, $heading, $item, $link;
-        $item = $(this);
-        $link = $item.find('a');
+      $navItems = $list.children();
+      return $navItems.removeClass(self.options.tabs.itemClass).addClass(self.options.accordion.itemClass).each(function() {
+        var $content, $heading, $link, $navItem;
+        $navItem = $(this);
+        $link = $navItem.find('a');
         $content = $($link.attr('data-target'));
         $heading = $('<div class="accordion-heading" />').append($link);
         $content.append($('<div class="accordion-inner" />').append($content.children()));
@@ -161,7 +163,7 @@
         $link.attr('data-toggle', 'collapse');
         $link.attr('data-target', '#' + $content.attr('id'));
         $link.data('parent', self.$el);
-        $item.append($heading).append($content);
+        $navItem.append($heading).append($content);
         self.switchContent($link, $content, self.options.tabs, self.options.accordion);
         return true;
       });
