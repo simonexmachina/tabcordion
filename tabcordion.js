@@ -79,11 +79,15 @@
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           set = _ref[_i];
-          _results.push(set.removeClass('active').slice(i, i + 1).addClass('active'));
+          if (set.length > i) {
+            _results.push(set.removeClass('active').slice(i, i + 1).addClass('active'));
+          } else {
+            _results.push(void 0);
+          }
         }
         return _results;
       } else {
-        return this.$el.find('.accordion-group').removeClass('active').slice(i, i + 1).find('.accordion-body').addClass('in');
+        return this.$el.find('.accordion-group').removeClass('active').slice(i, i + 1).find('.accordion-body').addClass('in').css('height', 'auto');
       }
     };
 
@@ -195,6 +199,10 @@
         $content.collapse(isActive ? 'show' : 'hide');
       }
       return isActive;
+    };
+
+    Tabcordion.prototype.getItems = function() {
+      return this.$el.find('.nav > li a[data-target]');
     };
 
     Tabcordion.prototype.destroy = function() {

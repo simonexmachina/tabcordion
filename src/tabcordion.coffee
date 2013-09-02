@@ -55,12 +55,14 @@ class Tabcordion
   index: (i)->
     if @$el.hasClass @options.tabs.class
       for set in [@$el.find('.tab-content > *'), @$el.find('.nav-tabs > *')]
-        set.removeClass('active')
-          .slice(i, i + 1).addClass('active')
+        if set.length > i
+          set.removeClass('active')
+            .slice(i, i + 1).addClass('active')
     else
       @$el.find('.accordion-group')
         .removeClass('active')
         .slice(i, i + 1).find('.accordion-body').addClass('in')
+        .css('height', 'auto')
 
   eventHandler: (e)->
     clearTimeout @timeout if @timeout
@@ -175,6 +177,9 @@ class Tabcordion
       $content.height if isActive then 'auto' else 0
       $content.collapse if isActive then 'show' else 'hide'
     return isActive
+
+  getItems: ->
+    @$el.find '.nav > li a[data-target]'
 
   destroy: ->
     $(window).off 'resize', @proxy if @proxy
