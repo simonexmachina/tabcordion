@@ -14,16 +14,25 @@ html(lang='en')
       script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js')
       script(src='tabcordion.js')
   body
-    .page-header
+    .page-header.hero-unit
       h1 Tabcordion.js
+      p.lead  First it's tabs, now it's an accordion - it's a TABCORDION!
+      a(class="btn btn-primary", href="https://github.com/aexmachina/tabcordion") Github Project
     .row
       .span12
+        div
+          
+          p A simple jQuery plugin that transforms a set of Bootstrap tabs into a Bootstrap accordion. It can be configured to perform this transformation based on the size of the container or viewport to provide responsive awesomeness to your buzzword-rich UI.
+        p See the 
+          a(href="https://github.com/aexmachina/tabcordion") Github project 
+          | for usage.
         p.lead Press the button. Go on, press it.
         p
           .btn-group
             button.btn(onclick="$('.tabcordion').tabcordion('tabs')") Tabs
             button.btn(onclick="$('.tabcordion').tabcordion('accordion')") Accordion
-        p.lead Tabcordion also responds to the window size. Try resizing the browser window.
+        p Tabcordion also responds to the window size. 
+          strong Try resizing the browser window.
     .row
       .span12
         .tabcordion
@@ -57,7 +66,7 @@ html(lang='en')
       .span12
         .page-header
           h2 Vertical Tabs
-        p.lead Whip it.
+        p.lead Whip it&hellip; whip it good.
         .tabcordion.tabs-left
           ul.nav.nav-tabs
             li.active
