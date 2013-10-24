@@ -1,0 +1,23 @@
+{
+  "name": "tabcordion",
+  "main": "tabcordion.js",
+  "version": "1.0.0",
+  "homepage": "http://aexmachina.github.io/tabcordion/",
+  "authors": [
+    "Simon Wade <simon.wade@gmail.com>"
+  ],
+  "description": "A simple jQuery plugin that transforms a set of Bootstrap tabs into a Bootstrap accordion",
+  "keywords": [
+    "bootstrap",
+    "accordion",
+    "tabs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
