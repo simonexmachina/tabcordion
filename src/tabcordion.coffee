@@ -9,27 +9,36 @@ $.fn.tabcordion = (option) ->
     data = $this.data('tabcordion') || new Tabcordion(this, options)
     if typeof option == 'string'
       data[option]()
+    else if typeof option == 'number'
+      data.index(option)
 
 $.fn.tabcordion.defaults =
   resizeEl: null # defaults to el
+  onResize: true
+  delay: 500
+  breakWidth: 768
   tabs:
-    minWidth: 480
+    minWidth: null
     class: 'tabbable'
     listClass: 'nav nav-tabs'
     itemClass: ''
-    bodyClass: 'tab-pane fade'
+    bodyClass: 'tab-pane' # fade
   accordion:
-    maxWidth: 480
+    maxWidth: null
     class: 'accordion'
     listClass: 'nav'
     itemClass: 'accordion-group'
     bodyClass: 'accordion-body collapse'
   activeClass: 'active in'
+  # can be used to define a method that will schedule the call to onResize
+  scheduler: null
 
 class Tabcordion
   constructor: (el, options) ->
     @$el = $(el);
     @options = $.extend {}, $.fn.tabcordion.defaults, {resizeEl: @$el}, options
+    @options.tabs.minWidth = @options.breakWidth unless @options.tabs.minWidth?
+    @options.accordion.maxWidth = @options.breakWidth unless @options.accordion.maxWidth?
     # set up the initial tabbed state
     @$el.addClass(@options.tabs.class)
       .find('> .tab-content > *')
@@ -38,9 +47,32 @@ class Tabcordion
     @$el.data('tabcordion', this)
     if listClass = @$el.find('> ul').attr('class')
       @options.tabs.listClass += ' ' + listClass
-    $(window).resize (e) =>
-      @onResize(e)
+    if @options.onResize
+      @proxy = $.proxy @eventHandler, this
+      $(window).on 'resize', @proxy
     @onResize()
+
+  index: (i)->
+    if @$el.hasClass @options.tabs.class
+      for set in [@$el.find('.tab-content > *'), @$el.find('.nav-tabs > *')]
+        if set.length > i
+          set.removeClass('active')
+            .slice(i, i + 1).addClass('active')
+    else
+      @$el.find('.accordion-group')
+        .removeClass('active')
+        .slice(i, i + 1).find('.accordion-body').addClass('in')
+        .css('height', 'auto')
+
+  eventHandler: (e)->
+    clearTimeout @timeout if @timeout
+    @timeout = setTimeout =>
+      if @options.scheduler
+        @options.scheduler =>
+          @onResize(e)
+      else
+        @onResize(e)
+    , @options.delay
 
   onResize: () ->
     width = $(@options.resizeEl).width()
@@ -54,33 +86,35 @@ class Tabcordion
       return
     @$el.removeClass(@options.accordion.class)
       .addClass(@options.tabs.class)
-    
-    $list = @$el.find('> ul')
+
+    $list = @$el.find('> ul.nav')
       .removeClass(@options.accordion.listClass)
       .addClass(@options.tabs.listClass)
-    $contentContainer = @$el.find('.tab-content')
+    $tabContent = @$el.find('.tab-content').css('display', 'block')
+    $list.parent().append($tabContent)
 
     self = this
     $list.children()
       .removeClass(self.options.accordion.itemClass)
       .addClass(self.options.tabs.itemClass)
       .each ->
-        $item = $(this)
-        $link = $item.find('.accordion-heading a')
+        $navItem = $(this)
+        $link = $navItem.find('.accordion-heading a')
         $link.attr('data-toggle', 'tab')
-        
+
         $content = $($link.attr('data-target'))
-        
+          .removeClass('fade')
+
         $inner = $content.find('> .accordion-inner').remove()
         $content.append($inner.children())
         
-        $item
+        $navItem
           .children().remove().end()
           .append($link)
 
-        $contentContainer.append($content)
+        $tabContent.append($content)
         self.switchContent $link, $content, self.options.accordion, self.options.tabs
-        true
+        $link.tab()
 
   accordion: ->
     if @$el.hasClass @options.accordion.class
@@ -88,19 +122,20 @@ class Tabcordion
     @$el.removeClass(@options.tabs.class)
       .addClass(@options.accordion.class)
     
-    $list = @$el.find('> ul')
+    $list = @$el.find('> ul.nav')
       .removeClass(@options.tabs.listClass)
       .addClass(@options.accordion.listClass)
-    $contentContainer = @$el.find('.tab-content')
-    
+    $list.parent().append($list)
+    $tabContent = @$el.find('.tab-content').css('display', 'none')
+
     self = this
-    $items = $list.children()
-    $items
+    $navItems = $list.children()
+    $navItems
       .removeClass(self.options.tabs.itemClass)
       .addClass(self.options.accordion.itemClass)
       .each ->
-        $item = $(this)
-        $link = $item.find('a')
+        $navItem = $(this)
+        $link = $navItem.find('a')
         $content = $($link.attr('data-target'))
         
         $heading = $('<div class="accordion-heading" />').append($link);
@@ -114,7 +149,7 @@ class Tabcordion
         $link.attr('data-target', '#' + $content.attr('id'))
         $link.data('parent', self.$el)
 
-        $item.append($heading)
+        $navItem.append($heading)
           .append($content)
         self.switchContent $link, $content, self.options.tabs, self.options.accordion
         true
@@ -131,6 +166,8 @@ class Tabcordion
     else
       $link.removeClass @options.activeClass
       $content.removeClass @options.activeClass
+    $link.on 'click', (e)->
+      e.preventDefault()
     $content.collapse
       parent: @$el.find('> ul')
       toggle: false
@@ -140,6 +177,12 @@ class Tabcordion
       $content.height if isActive then 'auto' else 0
       $content.collapse if isActive then 'show' else 'hide'
     return isActive
+
+  getItems: ->
+    @$el.find '.nav > li a[data-target]'
+
+  destroy: ->
+    $(window).off 'resize', @proxy if @proxy
 
 $.extend Tabcordion,
   idSuffix: 1
