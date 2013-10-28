@@ -17,16 +17,16 @@ html(lang='en')
         $(document).on('click', 'a.resize', function() {
           $cn = $('.container');
           var width = 600, onComplete;
-          if( $cn.data('fullWidth') ) {
+          if( !$cn.data('fullWidth') ) {
+            $cn.data('fullWidth', $cn.width());
+            $cn.css('maxWidth', $cn.width());
+          }
+          else {
             width = $cn.data('fullWidth');
             $cn.data('fullWidth', null);
             onComplete = function() {
               $cn.css('maxWidth', null);
             };
-          }
-          else {
-            $cn.css('maxWidth', $cn.width());
-            $cn.data('fullWidth', $cn.width());
           }
           $cn.animate({maxWidth: width}, {complete: onComplete});
           $(window).trigger('resize');
