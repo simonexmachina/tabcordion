@@ -51,6 +51,7 @@ class Tabcordion
       @proxy = $.proxy @eventHandler, this
       $(window).on 'resize', @proxy
     @onResize()
+    @initialized = true
 
   index: (i)->
     if @$el.hasClass @options.tabs.class
@@ -82,6 +83,9 @@ class Tabcordion
       @tabs()
 
   tabs: ->
+    unless @initialized
+      return @$el.find('> ul.nav a').tab().on 'click', ->
+        $(this).tab('show')
     if @$el.hasClass @options.tabs.class
       return
     @$el.removeClass(@options.accordion.class)
