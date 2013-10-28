@@ -11,8 +11,12 @@ html(lang='en')
       link(rel='stylesheet', href='css/tabcordion-demo.css')
       link(rel='stylesheet', href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css')
       script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
-      script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js')
+      script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js')
       script(src='tabcordion.js')
+      script
+        $(function() {
+          $('.tabcordion').tabcordion()
+        });
       script
         $(document).on('click', 'a.resize', function() {
           $cn = $('.container');
@@ -113,8 +117,3 @@ html(lang='en')
                 h4 Settings
                 p Arcu auctor, porttitor tincidunt, aliquam ut ut, placerat porta pulvinar dictumst, placerat dis, nunc vel, risus. Tortor habitasse etiam porttitor mid pulvinar amet, cum tristique, pellentesque, purus? Elementum dignissim ac! Ultricies! Adipiscing a, sociis, rhoncus, scelerisque ac, tristique dolor pid non pid egestas sed nec nec porta nascetur vut! Odio nunc porta, elementum auctor habitasse? Auctor? Ultricies sed nunc massa ultricies platea diam a sit dis lorem? Duis purus augue dapibus. Porttitor placerat, auctor est ut, rhoncus placerat urna, amet mid! Eros a vel eros? Nunc. Natoque? Aliquet purus in sit.
                 p Mattis turpis in mid tincidunt placerat tortor tincidunt massa? Porta sagittis, lacus phasellus, diam? A eros eu in elit, mattis augue lundium penatibus. Porta nisi nunc in nascetur ac ut turpis ultricies, vel et augue! Lundium sit! Massa elementum! Et auctor, et turpis nunc cum eu magnis! Porta auctor lundium ultricies elementum sed enim cum adipiscing, sociis, in adipiscing, purus et. Cum sed. Facilisis lectus! Sed ac odio montes platea porttitor, porta sagittis adipiscing, porta scelerisque augue mauris eu integer elit, adipiscing ut?
-    script
-      $(function() {
-        $('.tabcordion').tabcordion()
-      });
-}
