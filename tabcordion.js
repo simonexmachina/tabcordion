@@ -70,6 +70,7 @@
         $(window).on('resize', this.proxy);
       }
       this.onResize();
+      this.initialized = true;
     }
 
     Tabcordion.prototype.index = function(i) {
@@ -119,6 +120,11 @@
 
     Tabcordion.prototype.tabs = function() {
       var $list, $tabContent, self;
+      if (!this.initialized) {
+        return this.$el.find('> ul.nav a').tab().on('click', function() {
+          return $(this).tab('show');
+        });
+      }
       if (this.$el.hasClass(this.options.tabs["class"])) {
         return;
       }
