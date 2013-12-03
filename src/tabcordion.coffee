@@ -60,10 +60,17 @@ class Tabcordion
           set.removeClass('active')
             .slice(i, i + 1).addClass('active')
     else
-      @$el.find('.accordion-group')
+      @$el.find('.accordion-body, .accordion-toggle')
+        .removeClass('active in')
+      $items = @$el.find('.accordion-group')
         .removeClass('active')
-        .slice(i, i + 1).find('.accordion-body').addClass('in')
+      $item = $items.slice(i, i + 1)
+      $item.addClass(@options.activeClass)
+      $item.find('.accordion-body')
+        .addClass('in')
         .css('height', 'auto')
+      $item.find('.accordion-heading > .accordion-toggle')
+        .addClass(@options.activeClass)
 
   eventHandler: (e)->
     clearTimeout @timeout if @timeout
@@ -97,12 +104,11 @@ class Tabcordion
     $tabContent = @$el.find('.tab-content').css('display', 'block')
     $list.parent().append($tabContent)
 
-    self = this
     $list.children()
-      .removeClass(self.options.accordion.itemClass)
-      .addClass(self.options.tabs.itemClass)
-      .each ->
-        $navItem = $(this)
+      .removeClass(@options.accordion.itemClass)
+      .addClass(@options.tabs.itemClass)
+      .each (i, el)=>
+        $navItem = $(el)
         $link = $navItem.find('.accordion-heading a')
         $link.attr('data-toggle', 'tab')
 
@@ -117,7 +123,7 @@ class Tabcordion
           .append($link)
 
         $tabContent.append($content)
-        self.switchContent $link, $content, self.options.accordion, self.options.tabs
+        @switchContent $link, $content, @options.accordion, @options.tabs
         $link.tab()
 
   accordion: ->
@@ -132,13 +138,12 @@ class Tabcordion
     $list.parent().append($list)
     $tabContent = @$el.find('.tab-content').css('display', 'none')
 
-    self = this
     $navItems = $list.children()
     $navItems
-      .removeClass(self.options.tabs.itemClass)
-      .addClass(self.options.accordion.itemClass)
-      .each ->
-        $navItem = $(this)
+      .removeClass(@options.tabs.itemClass)
+      .addClass(@options.accordion.itemClass)
+      .each (i, el)=>
+        $navItem = $(el)
         $link = $navItem.find('a')
         $content = $($link.attr('data-target'))
         
@@ -151,11 +156,11 @@ class Tabcordion
         $link.addClass('accordion-toggle')
         $link.attr('data-toggle', 'collapse')
         $link.attr('data-target', '#' + $content.attr('id'))
-        $link.data('parent', self.$el)
+        $link.data('parent', @$el)
 
         $navItem.append($heading)
           .append($content)
-        self.switchContent $link, $content, self.options.tabs, self.options.accordion
+        @switchContent $link, $content, @options.tabs, @options.accordion
         true
 
   switchContent: ($link, $content, from, to) ->

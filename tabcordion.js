@@ -74,7 +74,7 @@
     }
 
     Tabcordion.prototype.index = function(i) {
-      var set, _i, _len, _ref, _results;
+      var $item, $items, set, _i, _len, _ref, _results;
       if (this.$el.hasClass(this.options.tabs["class"])) {
         _ref = [this.$el.find('.tab-content > *'), this.$el.find('.nav-tabs > *')];
         _results = [];
@@ -88,7 +88,12 @@
         }
         return _results;
       } else {
-        return this.$el.find('.accordion-group').removeClass('active').slice(i, i + 1).find('.accordion-body').addClass('in').css('height', 'auto');
+        this.$el.find('.accordion-body, .accordion-toggle').removeClass('active in');
+        $items = this.$el.find('.accordion-group').removeClass('active');
+        $item = $items.slice(i, i + 1);
+        $item.addClass(this.options.activeClass);
+        $item.find('.accordion-body').addClass('in').css('height', 'auto');
+        return $item.find('.accordion-heading > .accordion-toggle').addClass(this.options.activeClass);
       }
     };
 
@@ -119,7 +124,8 @@
     };
 
     Tabcordion.prototype.tabs = function() {
-      var $list, $tabContent, self;
+      var $list, $tabContent,
+        _this = this;
       if (!this.initialized) {
         return this.$el.find('> ul.nav a').tab().on('click', function() {
           return $(this).tab('show');
@@ -132,10 +138,9 @@
       $list = this.$el.find('> ul.nav').removeClass(this.options.accordion.listClass).addClass(this.options.tabs.listClass);
       $tabContent = this.$el.find('.tab-content').css('display', 'block');
       $list.parent().append($tabContent);
-      self = this;
-      return $list.children().removeClass(self.options.accordion.itemClass).addClass(self.options.tabs.itemClass).each(function() {
+      return $list.children().removeClass(this.options.accordion.itemClass).addClass(this.options.tabs.itemClass).each(function(i, el) {
         var $content, $inner, $link, $navItem;
-        $navItem = $(this);
+        $navItem = $(el);
         $link = $navItem.find('.accordion-heading a');
         $link.attr('data-toggle', 'tab');
         $content = $($link.attr('data-target')).removeClass('fade');
@@ -143,13 +148,14 @@
         $content.append($inner.children());
         $navItem.children().remove().end().append($link);
         $tabContent.append($content);
-        self.switchContent($link, $content, self.options.accordion, self.options.tabs);
+        _this.switchContent($link, $content, _this.options.accordion, _this.options.tabs);
         return $link.tab();
       });
     };
 
     Tabcordion.prototype.accordion = function() {
-      var $list, $navItems, $tabContent, self;
+      var $list, $navItems, $tabContent,
+        _this = this;
       if (this.$el.hasClass(this.options.accordion["class"])) {
         return;
       }
@@ -157,11 +163,10 @@
       $list = this.$el.find('> ul.nav').removeClass(this.options.tabs.listClass).addClass(this.options.accordion.listClass);
       $list.parent().append($list);
       $tabContent = this.$el.find('.tab-content').css('display', 'none');
-      self = this;
       $navItems = $list.children();
-      return $navItems.removeClass(self.options.tabs.itemClass).addClass(self.options.accordion.itemClass).each(function() {
+      return $navItems.removeClass(this.options.tabs.itemClass).addClass(this.options.accordion.itemClass).each(function(i, el) {
         var $content, $heading, $link, $navItem;
-        $navItem = $(this);
+        $navItem = $(el);
         $link = $navItem.find('a');
         $content = $($link.attr('data-target'));
         $heading = $('<div class="accordion-heading" />').append($link);
@@ -172,9 +177,9 @@
         $link.addClass('accordion-toggle');
         $link.attr('data-toggle', 'collapse');
         $link.attr('data-target', '#' + $content.attr('id'));
-        $link.data('parent', self.$el);
+        $link.data('parent', _this.$el);
         $navItem.append($heading).append($content);
-        self.switchContent($link, $content, self.options.tabs, self.options.accordion);
+        _this.switchContent($link, $content, _this.options.tabs, _this.options.accordion);
         return true;
       });
     };
