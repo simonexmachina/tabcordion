@@ -66,10 +66,7 @@ class Tabcordion
         .removeClass('active')
       $item = $items.slice(i, i + 1)
       $item.addClass(@options.activeClass)
-      $item.find('.accordion-body')
-        .addClass('in')
-        .css('height', 'auto')
-      $item.find('.accordion-heading > .accordion-toggle')
+        .find('.accordion-heading > .accordion-toggle')
         .addClass(@options.activeClass)
 
   eventHandler: (e)->
@@ -184,7 +181,7 @@ class Tabcordion
       $content.collapse('reset')
     else
       $content.height if isActive then 'auto' else 0
-      $content.collapse if isActive then 'show' else 'hide'
+      $content.collapse()
     return isActive
 
   getItems: ->

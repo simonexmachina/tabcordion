@@ -91,9 +91,7 @@
         this.$el.find('.accordion-body, .accordion-toggle').removeClass('active in');
         $items = this.$el.find('.accordion-group').removeClass('active');
         $item = $items.slice(i, i + 1);
-        $item.addClass(this.options.activeClass);
-        $item.find('.accordion-body').addClass('in').css('height', 'auto');
-        return $item.find('.accordion-heading > .accordion-toggle').addClass(this.options.activeClass);
+        return $item.addClass(this.options.activeClass).find('.accordion-heading > .accordion-toggle').addClass(this.options.activeClass);
       }
     };
 
@@ -207,7 +205,7 @@
         $content.collapse('reset');
       } else {
         $content.height(isActive ? 'auto' : 0);
-        $content.collapse(isActive ? 'show' : 'hide');
+        $content.collapse();
       }
       return isActive;
     };
