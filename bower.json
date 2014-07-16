@@ -1,7 +1,7 @@
 {
   "name": "tabcordion",
   "main": "tabcordion.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "http://aexmachina.github.io/tabcordion/",
   "authors": [
     "Simon Wade <simon.wade@gmail.com>"
