@@ -42,3 +42,7 @@ Coming soon!
 	    </div>
 	  </div>
 	</div>
+
+## Dependencies
+
+Depends on the [Bootstrap collapse plugin](http://getbootstrap.com/javascript/#collapse).
