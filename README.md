@@ -6,10 +6,6 @@ A simple jQuery plugin that transforms a set of Bootstrap tabs into a Bootstrap 
 
 ## Usage
 
-### Using Bootstrap-Style Data-API
-
-Coming soon!
-
 ### From JavaScript
 
     $('.tabcordion').tabcordion()
@@ -42,6 +38,10 @@ Coming soon!
 	    </div>
 	  </div>
 	</div>
+
+## Installation
+
+	bower install tabcordion
 
 ## Dependencies
 
