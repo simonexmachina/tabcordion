@@ -1,6 +1,6 @@
 {
   "name": "tabcordion",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A simple jQuery plugin that transforms a set of Bootstrap tabs into a Bootstrap accordion.",
   "main": "tabcordion.js",
   "scripts": {
