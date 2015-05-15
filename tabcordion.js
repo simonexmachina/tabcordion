@@ -201,9 +201,7 @@
         parent: this.$el.find('> ul'),
         toggle: false
       });
-      if (switchToTab) {
-        $content.collapse('reset');
-      } else {
+      if (!switchToTab) {
         $content.height(isActive ? 'auto' : 0);
         $content.collapse();
       }
